@@ -34,6 +34,7 @@ namespace yslada
             this.label2 = new System.Windows.Forms.Label();
             this.InportBtn = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this.recoverBtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // tableCB
@@ -69,12 +70,13 @@ namespace yslada
             // InportBtn
             // 
             this.InportBtn.BackColor = System.Drawing.Color.LightSalmon;
-            this.InportBtn.Location = new System.Drawing.Point(12, 308);
+            this.InportBtn.Location = new System.Drawing.Point(12, 261);
             this.InportBtn.Name = "InportBtn";
             this.InportBtn.Size = new System.Drawing.Size(364, 71);
             this.InportBtn.TabIndex = 3;
             this.InportBtn.Text = "Импортирование ";
             this.InportBtn.UseVisualStyleBackColor = false;
+            this.InportBtn.Click += new System.EventHandler(this.InportBtn_Click);
             // 
             // button2
             // 
@@ -87,12 +89,24 @@ namespace yslada
             this.button2.UseVisualStyleBackColor = false;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
+            // recoverBtn
+            // 
+            this.recoverBtn.BackColor = System.Drawing.Color.LightSalmon;
+            this.recoverBtn.Location = new System.Drawing.Point(12, 338);
+            this.recoverBtn.Name = "recoverBtn";
+            this.recoverBtn.Size = new System.Drawing.Size(364, 71);
+            this.recoverBtn.TabIndex = 5;
+            this.recoverBtn.Text = "Восстановление";
+            this.recoverBtn.UseVisualStyleBackColor = false;
+            this.recoverBtn.Click += new System.EventHandler(this.recoverBtn_Click);
+            // 
             // InportData
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::yslada.Properties.Resources.AddDishesBG;
             this.ClientSize = new System.Drawing.Size(388, 498);
+            this.Controls.Add(this.recoverBtn);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.InportBtn);
             this.Controls.Add(this.label2);
@@ -116,5 +130,6 @@ namespace yslada
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button InportBtn;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button recoverBtn;
     }
 }
