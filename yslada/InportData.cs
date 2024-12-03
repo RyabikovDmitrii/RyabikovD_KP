@@ -116,7 +116,7 @@ namespace yslada
                 try
                 {
                     string createSchemaScript = @"
-                      USE `yslada`;
+                      USE `yslada_upd`;
 
                     --
                     -- Table structure for table `category`
