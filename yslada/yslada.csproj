@@ -133,11 +133,11 @@
     <Compile Include="Employees.Designer.cs">
       <DependentUpon>Employees.cs</DependentUpon>
     </Compile>
-    <Compile Include="ImportData.cs">
+    <Compile Include="InportData.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ImportData.Designer.cs">
-      <DependentUpon>ImportData.cs</DependentUpon>
+    <Compile Include="InportData.Designer.cs">
+      <DependentUpon>InportData.cs</DependentUpon>
     </Compile>
     <Compile Include="MenuAdmin.cs">
       <SubType>Form</SubType>
@@ -193,8 +193,8 @@
     <EmbeddedResource Include="Employees.resx">
       <DependentUpon>Employees.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ImportData.resx">
-      <DependentUpon>ImportData.cs</DependentUpon>
+    <EmbeddedResource Include="InportData.resx">
+      <DependentUpon>InportData.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MenuAdmin.resx">
       <DependentUpon>MenuAdmin.cs</DependentUpon>

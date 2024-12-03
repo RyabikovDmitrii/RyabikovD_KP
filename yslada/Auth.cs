@@ -34,69 +34,83 @@ namespace yslada
         {
             string login = loginTB.Text;
             string passwd = passwdTB.Text;
-            string hashPassword = HashPassword(passwd);  // Хешируем введенный пароль
-            using (MySqlConnection con = new MySqlConnection(conStr))
+            if (Properties.Settings.Default.Login == login && Properties.Settings.Default.Passwd == passwd)
             {
-                MySqlCommand cmd = new MySqlCommand("SELECT userID, role, surname, name, patronymic, userPasswd FROM user WHERE userLogin = @login;", con);
-                cmd.Parameters.AddWithValue("@login", login); // Избегаем SQL-инъекций
-                try
+                loginTB.Text = "";
+                passwdTB.Text = "";
+                Hide();
+                using (InportData inport = new InportData())
                 {
-                    con.Open();
-                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    inport.ShowDialog();
+                }
+                Show();
+            }
+            else
+            {
+                string hashPassword = HashPassword(passwd);  // Хешируем введенный пароль
+                using (MySqlConnection con = new MySqlConnection(conStr))
+                {
+                    MySqlCommand cmd = new MySqlCommand("SELECT userID, role, surname, name, patronymic, userPasswd FROM user WHERE userLogin = @login;", con);
+                    cmd.Parameters.AddWithValue("@login", login); // Избегаем SQL-инъекций
+                    try
                     {
-                        if (!reader.Read())
+                        con.Open();
+                        using (MySqlDataReader reader = cmd.ExecuteReader())
                         {
-                            MessageBox.Show("Введен не правильный логин или пароль", "Ошибка авторизации", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            loginTB.Text = "";
-                            passwdTB.Text = "";
-                            return;
-                        }
+                            if (!reader.Read())
+                            {
+                                MessageBox.Show("Введен не правильный логин или пароль", "Ошибка авторизации", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                loginTB.Text = "";
+                                passwdTB.Text = "";
+                                return;
+                            }
 
-                        // Сравниваем хеши
-                        string storedHash = reader["userPasswd"].ToString();
-                        if (storedHash == hashPassword)
-                        {
-                            FIO = reader["surname"].ToString() + " " + reader["name"].ToString() + " " + reader["patronymic"];
-                            Role = reader["role"].ToString();
-                            loginTB.Text = "";
-                            passwdTB.Text = "";
-                            MessageBox.Show("Успешный вход!", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            Hide();
-                            if (Role == "1")
+                            // Сравниваем хеши
+                            string storedHash = reader["userPasswd"].ToString();
+                            if (storedHash == hashPassword)
                             {
-                                using (MenuAdmin admin = new MenuAdmin(FIO, Role))
+                                FIO = reader["surname"].ToString() + " " + reader["name"].ToString() + " " + reader["patronymic"];
+                                Role = reader["role"].ToString();
+                                loginTB.Text = "";
+                                passwdTB.Text = "";
+                                MessageBox.Show("Успешный вход!", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                Hide();
+                                if (Role == "1")
                                 {
-                                    admin.SetLBText(FIO);
-                                    admin.ShowDialog();
+                                    using (MenuAdmin admin = new MenuAdmin(FIO, Role))
+                                    {
+                                        admin.SetLBText(FIO);
+                                        admin.ShowDialog();
+                                    }
+                                    Show();
                                 }
-                                Show();
+                                else if (Role == "2")
+                                {
+                                    using (MenuManager manager = new MenuManager(FIO, Role))
+                                    {
+                                        manager.SetLBText(FIO);
+                                        manager.ShowDialog();
+                                    }
+                                    Show();
+                                }
+                                MenuDishes add = new MenuDishes(FIO, Role);
                             }
-                            else if (Role == "2")
+                            else
                             {
-                                using (MenuManager manager = new MenuManager(FIO, Role))
-                                {
-                                    manager.SetLBText(FIO);
-                                    manager.ShowDialog();
-                                }
-                                Show();
+                                MessageBox.Show("Введен не правильный логин или пароль", "Ошибка авторизации", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                loginTB.Text = "";
+                                passwdTB.Text = "";
                             }
-                            MenuDishes add = new MenuDishes(FIO, Role);
-                        }
-                        else
-                        {
-                            MessageBox.Show("Введен не правильный логин или пароль", "Ошибка авторизации", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            loginTB.Text = "";
-                            passwdTB.Text = "";
                         }
                     }
-                }
-                catch (Exception exe)
-                {
-                    MessageBox.Show(exe.Message, "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                finally
-                {
-                    con.Close();
+                    catch (Exception exe)
+                    {
+                        MessageBox.Show(exe.Message, "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    finally
+                    {
+                        con.Close();
+                    }
                 }
             }
         }

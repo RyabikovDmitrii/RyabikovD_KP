@@ -29,20 +29,20 @@ namespace yslada
         /// </summary>
         private void InitializeComponent()
         {
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.tableCB = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.InportBtn = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // comboBox1
+            // tableCB
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(12, 145);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(364, 33);
-            this.comboBox1.TabIndex = 0;
+            this.tableCB.FormattingEnabled = true;
+            this.tableCB.Location = new System.Drawing.Point(12, 145);
+            this.tableCB.Name = "tableCB";
+            this.tableCB.Size = new System.Drawing.Size(364, 33);
+            this.tableCB.TabIndex = 0;
             // 
             // label1
             // 
@@ -66,15 +66,15 @@ namespace yslada
             this.label2.TabIndex = 2;
             this.label2.Text = "Выберите таблику для импортирования";
             // 
-            // button1
+            // InportBtn
             // 
-            this.button1.BackColor = System.Drawing.Color.LightSalmon;
-            this.button1.Location = new System.Drawing.Point(12, 308);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(364, 71);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "Импортирование ";
-            this.button1.UseVisualStyleBackColor = false;
+            this.InportBtn.BackColor = System.Drawing.Color.LightSalmon;
+            this.InportBtn.Location = new System.Drawing.Point(12, 308);
+            this.InportBtn.Name = "InportBtn";
+            this.InportBtn.Size = new System.Drawing.Size(364, 71);
+            this.InportBtn.TabIndex = 3;
+            this.InportBtn.Text = "Импортирование ";
+            this.InportBtn.UseVisualStyleBackColor = false;
             // 
             // button2
             // 
@@ -85,6 +85,7 @@ namespace yslada
             this.button2.TabIndex = 4;
             this.button2.Text = "Выход";
             this.button2.UseVisualStyleBackColor = false;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // InportData
             // 
@@ -93,14 +94,15 @@ namespace yslada
             this.BackgroundImage = global::yslada.Properties.Resources.AddDishesBG;
             this.ClientSize = new System.Drawing.Size(388, 498);
             this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.InportBtn);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.tableCB);
             this.Font = new System.Drawing.Font("Nirmala UI", 14.25F);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(6);
             this.Name = "InportData";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "InportData";
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -109,10 +111,10 @@ namespace yslada
 
         #endregion
 
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox tableCB;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button InportBtn;
         private System.Windows.Forms.Button button2;
     }
 }
