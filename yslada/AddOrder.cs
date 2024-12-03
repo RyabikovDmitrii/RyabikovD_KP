@@ -300,7 +300,7 @@ namespace yslada
                     if (saveFileDialog.ShowDialog() == DialogResult.OK)
                     {
                         // Сохранение документа по выбранному пути
-                        document.SaveAs2(saveFileDialog.FileName);
+                        document.SaveAs(saveFileDialog.FileName);
                         MessageBox.Show($"Чек успешно создан: {saveFileDialog.FileName}");
                     }
                 }

@@ -10,7 +10,7 @@ namespace yslada
     {
         public static string connectionString()
         {
-            string conStr = $"Server=127.0.0.1; Database=yslada_upd; Uid=root; Pwd=";
+            string conStr = $"Server=127.0.0.1; Database=yslada_upd; Uid=root; Pwd=root";
             return conStr;
         }
     }

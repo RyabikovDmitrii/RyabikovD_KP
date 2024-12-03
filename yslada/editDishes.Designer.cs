@@ -67,6 +67,7 @@ namespace yslada
             this.categoryCB.Name = "categoryCB";
             this.categoryCB.Size = new System.Drawing.Size(236, 33);
             this.categoryCB.TabIndex = 93;
+            this.categoryCB.SelectedIndexChanged += new System.EventHandler(this.categoryCB_SelectedIndexChanged);
             // 
             // categoryLB
             // 

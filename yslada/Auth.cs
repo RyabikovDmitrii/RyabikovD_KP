@@ -23,7 +23,11 @@ namespace yslada
 
         private void Close_Click(object sender, EventArgs e)
         {
-            Close();
+            DialogResult res = MessageBox.Show("Вы точно хотите выйти из приложения", "Подтверждение", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (res == DialogResult.Yes)
+            {
+                Close();
+            }
         }
 
         private void authBtn_Click(object sender, EventArgs e)

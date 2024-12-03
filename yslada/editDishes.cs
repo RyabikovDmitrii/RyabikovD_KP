@@ -169,5 +169,10 @@ namespace yslada
         {
             Close();
         }
+
+        private void categoryCB_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
