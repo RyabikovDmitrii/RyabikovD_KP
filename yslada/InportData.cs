@@ -15,11 +15,11 @@ namespace yslada
 {
     public partial class InportData : Form
     {
+        private string db = " ";
         private string connectionString = ConnectionStr.connectionString();
         public InportData()
         {
             InitializeComponent();
-            LoadTableNames();
         }
         private void LoadTableNames()
         {
@@ -110,12 +110,14 @@ namespace yslada
 
         private void recoverBtn_Click(object sender, EventArgs e)
         {
+            Properties.Settings.Default.database = db;
             using (MySqlConnection con = new MySqlConnection(connectionString))
             {
                 con.Open();
                 try
                 {
                     string createSchemaScript = @"
+                      CREATE DATABASE  IF NOT EXISTS `yslada_upd`;
                       USE `yslada_upd`;
 
                     --

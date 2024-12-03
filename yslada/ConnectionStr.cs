@@ -10,7 +10,11 @@ namespace yslada
     {
         public static string connectionString()
         {
-            string conStr = $"Server=127.0.0.1; Database=yslada_upd; Uid=root; Pwd=root";
+            string server = Properties.Settings.Default.Server;
+            string database = Properties.Settings.Default.database;
+            string uid = Properties.Settings.Default.uid;
+            string pwd = Properties.Settings.Default.pwd;
+            string conStr = $"Server={server}; Database={database}; Uid={uid}; Pwd={pwd}";
             return conStr;
         }
     }
