@@ -41,6 +41,9 @@ namespace yslada
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.FilterCB = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
+            this.backBtn = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.countLB = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.DishesDGW)).BeginInit();
             this.SuspendLayout();
             // 
@@ -182,6 +185,41 @@ namespace yslada
             this.label6.TabIndex = 33;
             this.label6.Text = "Фильтрация категории ";
             // 
+            // backBtn
+            // 
+            this.backBtn.BackColor = System.Drawing.Color.Transparent;
+            this.backBtn.Cursor = System.Windows.Forms.Cursors.Default;
+            this.backBtn.FlatAppearance.BorderSize = 0;
+            this.backBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.backBtn.Image = global::yslada.Properties.Resources.left;
+            this.backBtn.Location = new System.Drawing.Point(15, 668);
+            this.backBtn.Name = "backBtn";
+            this.backBtn.Size = new System.Drawing.Size(45, 48);
+            this.backBtn.TabIndex = 35;
+            this.backBtn.UseVisualStyleBackColor = false;
+            // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.Color.Transparent;
+            this.button1.FlatAppearance.BorderSize = 0;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Image = global::yslada.Properties.Resources.right;
+            this.button1.Location = new System.Drawing.Point(75, 668);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(45, 48);
+            this.button1.TabIndex = 36;
+            this.button1.UseVisualStyleBackColor = false;
+            // 
+            // countLB
+            // 
+            this.countLB.AutoSize = true;
+            this.countLB.BackColor = System.Drawing.Color.Transparent;
+            this.countLB.Location = new System.Drawing.Point(179, 680);
+            this.countLB.Name = "countLB";
+            this.countLB.Size = new System.Drawing.Size(20, 25);
+            this.countLB.TabIndex = 38;
+            this.countLB.Text = "*";
+            // 
             // MenuDishes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 25F);
@@ -189,6 +227,9 @@ namespace yslada
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.BackgroundImage = global::yslada.Properties.Resources.MenuBG1;
             this.ClientSize = new System.Drawing.Size(1334, 723);
+            this.Controls.Add(this.countLB);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.backBtn);
             this.Controls.Add(this.FilterCB);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.comboBox2);
@@ -228,5 +269,8 @@ namespace yslada
         private System.Windows.Forms.ComboBox comboBox2;
         private System.Windows.Forms.ComboBox FilterCB;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Button backBtn;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label countLB;
     }
 }

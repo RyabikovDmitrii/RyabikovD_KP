@@ -36,6 +36,7 @@ namespace yslada
             InitializeComboBox();
             InitializeOrderButton();
             InitializeFilterCB();
+            LoadRowCount();
             FIO += fio;
             Role += role;
             connection = new MySqlConnection(str);
@@ -71,6 +72,24 @@ namespace yslada
                 contextMenuStrip.Items.Add(deleteDishMenuItem);
 
                 DishesDGW.ContextMenuStrip = contextMenuStrip;
+            }
+        }
+        private void LoadRowCount()
+        {
+            try
+            {
+                using (connection)
+                {
+                    connection.Open();
+                    string query = "SELECT COUNT(*) FROM menu";
+                    MySqlCommand command = new MySqlCommand(query, connection);
+                    int rowCount = Convert.ToInt32(command.ExecuteScalar());
+                    countLB.Text = $"Количество строк: {rowCount}";
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка: {ex.Message}");
             }
         }
         private void DeleteDishFromDatabase(int menuID)
