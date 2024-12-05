@@ -36,6 +36,11 @@ namespace yslada
             this.Close = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.fieldTB = new System.Windows.Forms.TextBox();
+            this.captchaPB = new System.Windows.Forms.PictureBox();
+            this.checkBtn = new System.Windows.Forms.Button();
+            this.updateBtn = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.captchaPB)).BeginInit();
             this.SuspendLayout();
             // 
             // loginTB
@@ -113,13 +118,60 @@ namespace yslada
             this.label3.TabIndex = 6;
             this.label3.Text = "Пароль:";
             // 
+            // fieldTB
+            // 
+            this.fieldTB.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.fieldTB.Location = new System.Drawing.Point(405, 281);
+            this.fieldTB.Margin = new System.Windows.Forms.Padding(2);
+            this.fieldTB.Name = "fieldTB";
+            this.fieldTB.Size = new System.Drawing.Size(261, 32);
+            this.fieldTB.TabIndex = 23;
+            // 
+            // captchaPB
+            // 
+            this.captchaPB.BackColor = System.Drawing.Color.LightSalmon;
+            this.captchaPB.Location = new System.Drawing.Point(405, 97);
+            this.captchaPB.Margin = new System.Windows.Forms.Padding(2);
+            this.captchaPB.Name = "captchaPB";
+            this.captchaPB.Size = new System.Drawing.Size(261, 152);
+            this.captchaPB.TabIndex = 22;
+            this.captchaPB.TabStop = false;
+            // 
+            // checkBtn
+            // 
+            this.checkBtn.BackColor = System.Drawing.Color.LightSalmon;
+            this.checkBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.checkBtn.Location = new System.Drawing.Point(405, 373);
+            this.checkBtn.Margin = new System.Windows.Forms.Padding(2);
+            this.checkBtn.Name = "checkBtn";
+            this.checkBtn.Size = new System.Drawing.Size(261, 36);
+            this.checkBtn.TabIndex = 21;
+            this.checkBtn.Text = "Проверить";
+            this.checkBtn.UseVisualStyleBackColor = false;
+            // 
+            // updateBtn
+            // 
+            this.updateBtn.BackColor = System.Drawing.Color.LightSalmon;
+            this.updateBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.updateBtn.Location = new System.Drawing.Point(405, 333);
+            this.updateBtn.Margin = new System.Windows.Forms.Padding(2);
+            this.updateBtn.Name = "updateBtn";
+            this.updateBtn.Size = new System.Drawing.Size(261, 36);
+            this.updateBtn.TabIndex = 20;
+            this.updateBtn.Text = "Обновить";
+            this.updateBtn.UseVisualStyleBackColor = false;
+            // 
             // Auth
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackgroundImage = global::yslada.Properties.Resources.MenuBG;
-            this.ClientSize = new System.Drawing.Size(320, 421);
+            this.ClientSize = new System.Drawing.Size(323, 421);
+            this.Controls.Add(this.fieldTB);
+            this.Controls.Add(this.captchaPB);
+            this.Controls.Add(this.checkBtn);
+            this.Controls.Add(this.updateBtn);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.Close);
@@ -134,6 +186,7 @@ namespace yslada
             this.Name = "Auth";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Кафе \"Услада\"";
+            ((System.ComponentModel.ISupportInitialize)(this.captchaPB)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -148,6 +201,10 @@ namespace yslada
         private System.Windows.Forms.Button Close;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox fieldTB;
+        private System.Windows.Forms.PictureBox captchaPB;
+        private System.Windows.Forms.Button checkBtn;
+        private System.Windows.Forms.Button updateBtn;
     }
 }
 

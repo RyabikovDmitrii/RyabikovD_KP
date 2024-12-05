@@ -29,7 +29,13 @@ namespace yslada
                 Close();
             }
         }
-
+         private void CAPTCHA()
+        {
+            Size = new Size(707, 421);
+            loginTB.Enabled = false;
+            passwdTB.Enabled = false;
+            authBtn.Enabled = false;
+        }
         private void authBtn_Click(object sender, EventArgs e)
         {
             string login = loginTB.Text;
@@ -62,6 +68,7 @@ namespace yslada
                                 MessageBox.Show("Введен не правильный логин или пароль", "Ошибка авторизации", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 loginTB.Text = "";
                                 passwdTB.Text = "";
+                                CAPTCHA();
                                 return;
                             }
 
