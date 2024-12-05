@@ -33,6 +33,9 @@ namespace yslada
          private void CAPTCHA()
         {
             Size = new Size(707, 421);
+            fieldTB.Enabled = true;
+            checkBtn.Enabled = true;
+            updateBtn.Enabled = true;
             loginTB.Enabled = false;
             passwdTB.Enabled = false;
             authBtn.Enabled = false;
@@ -41,7 +44,7 @@ namespace yslada
         {
             if (fieldTB.Text == this.text)
             {
-                MessageBox.Show("Верно!", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Капча введена верно!", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 loginTB.Enabled = true;
                 passwdTB.Enabled = true;
                 authBtn.Enabled = true;
@@ -51,11 +54,12 @@ namespace yslada
             {
                 fieldTB.Text = "";
                 //Предложить пользователю переход на форму настройки 
-                MessageBox.Show("Ошибка ввода капчи. Блокировка ввода на 20 сек.", "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Ошибка ввода капчи. Блокировка ввода на 10 сек.", "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 updateBtn.Enabled = false;
                 checkBtn.Enabled = false;
                 fieldTB.Enabled = false;
                 await Task.Delay(10000);
+                MessageBox.Show("Система снова доступна","Информация",MessageBoxButtons.OK, MessageBoxIcon.Information);
                 updateBtn.Enabled = true;
                 checkBtn.Enabled = true;
                 fieldTB.Enabled = true;
@@ -85,7 +89,7 @@ namespace yslada
             g.Clear(Color.Gray);
 
             text = String.Empty;
-            string ALF = "!@#$%^&*()=+1234567890QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm";
+            string ALF = "1234567890QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm";
             for (int i = 0; i < 5; ++i)
                 text += ALF[rnd.Next(ALF.Length)];
 
@@ -209,6 +213,12 @@ namespace yslada
             }
         }
 
-
+        private void Auth_Load(object sender, EventArgs e)
+        {
+            captchaPB.Image = this.CreateImage(captchaPB.Width, captchaPB.Height);
+            fieldTB.Enabled = false;
+            checkBtn.Enabled = false;
+            updateBtn.Enabled = false;
+        }
     }
 }

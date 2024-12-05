@@ -188,6 +188,7 @@ namespace yslada
             this.Name = "Auth";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Кафе \"Услада\"";
+            this.Load += new System.EventHandler(this.Auth_Load);
             ((System.ComponentModel.ISupportInitialize)(this.captchaPB)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
