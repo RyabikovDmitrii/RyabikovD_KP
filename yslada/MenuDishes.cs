@@ -84,7 +84,7 @@ namespace yslada
                     string query = "SELECT COUNT(*) FROM menu";
                     MySqlCommand command = new MySqlCommand(query, connection);
                     int rowCount = Convert.ToInt32(command.ExecuteScalar());
-                    countLB.Text = $"Количество строк: {rowCount}";
+                    countRowLB.Text = $"Количество строк: {rowCount}";
                 }
             }
             catch (Exception ex)
