@@ -27,8 +27,11 @@ namespace yslada
         private AddOrder orderForm;
         private bool isOrderFormOpen = false;
         public string Role = "";
+        private int currentPage = 0;
+        private int pageSize = 10; // Количество строк на странице
+        private int totalRows = 0; // Общее количество строк
         private int categoryId;
-        private string query = "SELECT m.menuID as Номер_Блюда, m.name AS Название, m.description AS Описание, c.name AS Категория, m.image AS Изображение, m.cost AS Цена FROM menu m JOIN category c ON m.category = c.categoryID WHERE m.name LIKE @name";
+        string query = "SELECT m.menuID as Номер_Блюда, m.name AS Название, m.description AS Описание, c.name AS Категория, m.image AS Изображение, m.cost AS Цена FROM menu m JOIN category c ON m.category = c.categoryID WHERE m.name LIKE @name ";
         public MenuDishes(string fio, string role)
         {
 
@@ -83,8 +86,8 @@ namespace yslada
                     connection.Open();
                     string query = "SELECT COUNT(*) FROM menu";
                     MySqlCommand command = new MySqlCommand(query, connection);
-                    int rowCount = Convert.ToInt32(command.ExecuteScalar());
-                    countRowLB.Text = $"Количество строк: {rowCount}";
+                    totalRows = Convert.ToInt32(command.ExecuteScalar());
+                    countRowLB.Text = $"Количество строк: {totalRows}";
                 }
             }
             catch (Exception ex)
@@ -212,22 +215,25 @@ namespace yslada
                     connection.Open();
                 }
 
-                string query = "SELECT m.menuID as Номер_Блюда, m.name AS Название, m.description AS Описание, c.name AS Категория, m.image AS Изображение, m.cost AS Цена FROM menu m JOIN category c ON m.category = c.categoryID WHERE m.name LIKE @name";
-
-                // If a category ID is provided and is not -1, add the category filter
+                // Получаем общее количество строк
+                string countQuery = "SELECT COUNT(*) FROM menu m JOIN category c ON m.category = c.categoryID WHERE m.name LIKE @name";
+                MySqlCommand countCmd = new MySqlCommand(countQuery, connection);
+                countCmd.Parameters.AddWithValue("@name", "%" + filter + "%");
                 if (categoryId.HasValue && categoryId.Value != -1)
                 {
-                    query += " AND m.category = @categoryID";
+                    countCmd.Parameters.AddWithValue("@categoryID", categoryId.Value);
                 }
+                totalRows = Convert.ToInt32(countCmd.ExecuteScalar());
+
+                // Изменяем запрос для получения данных с учетом пагинации
+                string query = "SELECT m.menuID as Номер_Блюда, m.name AS Название, m.description AS Описание, c.name AS Категория, m.image AS Изображение, m.cost AS Цена " +
+                               "FROM menu m JOIN category c ON m.category = c.categoryID WHERE m.name LIKE @name " +
+                               "LIMIT @pageSize OFFSET @offset";
 
                 MySqlCommand cmd = new MySqlCommand(query, connection);
-
-                // Add parameters for the query
                 cmd.Parameters.AddWithValue("@name", "%" + filter + "%");
-                if (categoryId.HasValue && categoryId.Value != -1)
-                {
-                    cmd.Parameters.AddWithValue("@categoryID", categoryId.Value);
-                }
+                cmd.Parameters.AddWithValue("@pageSize", pageSize);
+                cmd.Parameters.AddWithValue("@offset", currentPage * pageSize);
 
                 MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
                 table = new DataTable();
@@ -295,6 +301,7 @@ namespace yslada
                 }
 
                 DishesDGW.MouseClick += DishesDGW_MouseClick;
+                UpdatePaginationButtons();
             }
             catch (Exception ex)
             {
@@ -476,6 +483,28 @@ namespace yslada
                 var selectedItem = (dynamic)FilterCB.SelectedItem;
                 categoryId = selectedItem.Value;
                 Filldgv(SearchTB.Text, categoryId);
+            }
+        }
+        private void UpdatePaginationButtons()
+        {
+            backBtn.Enabled = currentPage > 0; // Деактивируем кнопку назад, если на первой странице
+            forwardBtn.Enabled = (currentPage + 1) * pageSize < totalRows; // Деактивируем кнопку вперед, если достигли последней страницы
+        }
+        private void backBtn_Click(object sender, EventArgs e)
+        {
+            if (currentPage > 0)
+            {
+                currentPage--;
+                Filldgv(); // Перезагружаем данные для текущей страницы
+            }
+        }
+
+        private void forwardBtn_Click(object sender, EventArgs e)
+        {
+            if ((currentPage + 1) * pageSize < totalRows)
+            {
+                currentPage++;
+                Filldgv(); // Перезагружаем данные для текущей страницы
             }
         }
     }

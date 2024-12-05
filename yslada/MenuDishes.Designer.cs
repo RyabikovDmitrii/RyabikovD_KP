@@ -42,7 +42,7 @@ namespace yslada
             this.FilterCB = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.backBtn = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.forwardBtn = new System.Windows.Forms.Button();
             this.countRowLB = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.DishesDGW)).BeginInit();
             this.SuspendLayout();
@@ -50,6 +50,7 @@ namespace yslada
             // DishesDGW
             // 
             this.DishesDGW.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.DishesDGW.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.DishesDGW.BackgroundColor = System.Drawing.Color.DarkSalmon;
             this.DishesDGW.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DishesDGW.Location = new System.Drawing.Point(15, 93);
@@ -197,24 +198,26 @@ namespace yslada
             this.backBtn.Size = new System.Drawing.Size(45, 48);
             this.backBtn.TabIndex = 35;
             this.backBtn.UseVisualStyleBackColor = false;
+            this.backBtn.Click += new System.EventHandler(this.backBtn_Click);
             // 
-            // button1
+            // forwardBtn
             // 
-            this.button1.BackColor = System.Drawing.Color.Transparent;
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Image = global::yslada.Properties.Resources.right;
-            this.button1.Location = new System.Drawing.Point(75, 668);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(45, 48);
-            this.button1.TabIndex = 36;
-            this.button1.UseVisualStyleBackColor = false;
+            this.forwardBtn.BackColor = System.Drawing.Color.Transparent;
+            this.forwardBtn.FlatAppearance.BorderSize = 0;
+            this.forwardBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.forwardBtn.Image = global::yslada.Properties.Resources.right;
+            this.forwardBtn.Location = new System.Drawing.Point(75, 668);
+            this.forwardBtn.Name = "forwardBtn";
+            this.forwardBtn.Size = new System.Drawing.Size(45, 48);
+            this.forwardBtn.TabIndex = 36;
+            this.forwardBtn.UseVisualStyleBackColor = false;
+            this.forwardBtn.Click += new System.EventHandler(this.forwardBtn_Click);
             // 
             // countRowLB
             // 
             this.countRowLB.AutoSize = true;
             this.countRowLB.BackColor = System.Drawing.Color.Transparent;
-            this.countRowLB.Location = new System.Drawing.Point(179, 680);
+            this.countRowLB.Location = new System.Drawing.Point(565, 680);
             this.countRowLB.Name = "countRowLB";
             this.countRowLB.Size = new System.Drawing.Size(20, 25);
             this.countRowLB.TabIndex = 38;
@@ -228,7 +231,7 @@ namespace yslada
             this.BackgroundImage = global::yslada.Properties.Resources.MenuBG1;
             this.ClientSize = new System.Drawing.Size(1334, 723);
             this.Controls.Add(this.countRowLB);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.forwardBtn);
             this.Controls.Add(this.backBtn);
             this.Controls.Add(this.FilterCB);
             this.Controls.Add(this.label6);
@@ -270,7 +273,7 @@ namespace yslada
         private System.Windows.Forms.ComboBox FilterCB;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button backBtn;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button forwardBtn;
         private System.Windows.Forms.Label countRowLB;
     }
 }
