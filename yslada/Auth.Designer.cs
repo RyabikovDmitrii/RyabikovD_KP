@@ -148,6 +148,7 @@ namespace yslada
             this.checkBtn.TabIndex = 21;
             this.checkBtn.Text = "Проверить";
             this.checkBtn.UseVisualStyleBackColor = false;
+            this.checkBtn.Click += new System.EventHandler(this.checkBtn_Click);
             // 
             // updateBtn
             // 
@@ -160,6 +161,7 @@ namespace yslada
             this.updateBtn.TabIndex = 20;
             this.updateBtn.Text = "Обновить";
             this.updateBtn.UseVisualStyleBackColor = false;
+            this.updateBtn.Click += new System.EventHandler(this.updateBtn_Click);
             // 
             // Auth
             // 
