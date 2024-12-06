@@ -13,6 +13,10 @@ namespace yslada
 {
     public partial class MenuDishes : Form
     {
+        private string currentSearchText = ""; // Для хранения текущего текста поиска
+        private int? currentCategoryId = null; // Для хранения текущей категории
+        private string currentSortOrder = ""; // Для хранения текущего порядка сортировки
+        private int pageSize = 10;
         private ToolStripMenuItem addNewDishMenuItem;
         private string FIO = "";
         private int orderCount = 0;
@@ -27,11 +31,12 @@ namespace yslada
         private AddOrder orderForm;
         private bool isOrderFormOpen = false;
         public string Role = "";
-        private int currentPage = 0;
-        private int pageSize = 10; // Количество строк на странице
+        private int currentPage = 0; // Количество строк на странице
         private int totalRows = 0; // Общее количество строк
         private int categoryId;
-        string query = "SELECT m.menuID as Номер_Блюда, m.name AS Название, m.description AS Описание, c.name AS Категория, m.image AS Изображение, m.cost AS Цена FROM menu m JOIN category c ON m.category = c.categoryID WHERE m.name LIKE @name ";
+        string query = "SELECT m.menuID as Номер_Блюда, m.name AS Название, m.description AS Описание, c.name AS Категория, m.image AS Изображение, m.cost AS Цена " +
+                       "FROM menu m JOIN category c ON m.category = c.categoryID WHERE m.name LIKE @name " +
+                       "LIMIT @pageSize OFFSET @offset";
         public MenuDishes(string fio, string role)
         {
 
@@ -39,7 +44,7 @@ namespace yslada
             InitializeComboBox();
             InitializeOrderButton();
             InitializeFilterCB();
-            LoadRowCount();
+            InitializePageLabels();
             FIO += fio;
             Role += role;
             connection = new MySqlConnection(str);
@@ -51,6 +56,7 @@ namespace yslada
             FilterCB.KeyPress += (sender, e) => e.Handled = true;
             SortCB.KeyPress += (sender, e) => e.Handled = true;
             DishesDGW.MouseClick += DishesDGW_MouseClick;
+            DishesDGW.AllowUserToAddRows = false;
             orderForm = new AddOrder(FIO);
 
             contextMenuStrip = new ContextMenuStrip();
@@ -77,24 +83,56 @@ namespace yslada
                 DishesDGW.ContextMenuStrip = contextMenuStrip;
             }
         }
-        private void LoadRowCount()
+        private void UpdatePageLabels()
         {
-            try
+            // Сброс цвета всех меток
+            ResetPageLabelColors();
+
+            // Установка цвета для текущей страницы
+            switch (currentPage)
             {
-                using (connection)
-                {
-                    connection.Open();
-                    string query = "SELECT COUNT(*) FROM menu";
-                    MySqlCommand command = new MySqlCommand(query, connection);
-                    totalRows = Convert.ToInt32(command.ExecuteScalar());
-                    countRowLB.Text = $"Количество строк: {totalRows}";
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Ошибка: {ex.Message}");
+                case 0:
+                    page1LB.BackColor = Color.LightBlue; // Выделение первой страницы
+                    break;
+                case 1:
+                    page2LB.BackColor = Color.LightBlue; // Выделение второй страницы
+                    break;
+                case 2:
+                    page3LB.BackColor = Color.LightBlue; // Выделение третьей страницы
+                    break;
             }
         }
+        // Пример инициализации меток и их обработчиков событий
+        private void InitializePageLabels()
+        {
+            page1LB.Click += (s, e) => GoToPage(0, page1LB);
+            page2LB.Click += (s, e) => GoToPage(1, page2LB);
+            page3LB.Click += (s, e) => GoToPage(2, page3LB);
+        }
+
+        // Метод для перехода на указанную страницу и выделения метки
+        private void GoToPage(int pageIndex, Label selectedLabel)
+        {
+            if (currentPage == pageIndex) return; // Если текущая страница уже выбрана, ничего не делаем
+
+            currentPage = pageIndex; // Устанавливаем текущую страницу
+            Filldgv(); // Загружаем данные для текущей страницы без параметров
+
+            // Сброс цвета для всех меток
+            ResetPageLabelColors();
+
+            // Выделение выбранной метки
+            selectedLabel.BackColor = Color.LightBlue; // Измените на желаемый цвет
+        }
+
+        // Метод для сброса цвета меток
+        private void ResetPageLabelColors()
+        {
+            page1LB.BackColor = Color.Transparent; // Или любой другой цвет по умолчанию
+            page2LB.BackColor = Color.Transparent;
+            page3LB.BackColor = Color.Transparent;
+        }
+
         private void DeleteDishFromDatabase(int menuID)
         {
             using (var connection = new MySqlConnection(str))
@@ -199,14 +237,29 @@ namespace yslada
         }
         private void MenuDishes_Load(object sender, EventArgs e)
         {
-            Filldgv();
+            Filldgv(); // Вызываем Filldgv для первоначальной загрузки
+            UpdatePageLabels();
+            // Устанавливаем состояние фильтрации и сортировки, если необходимо
+            if (!string.IsNullOrEmpty(currentSearchText))
+            {
+                SearchTB.Text = currentSearchText;
+            }
+            if (currentCategoryId.HasValue)
+            {
+                // Установите выбранный элемент фильтрации на основе currentCategoryId
+                FilterCB.SelectedItem = FilterCB.Items.Cast<dynamic>().FirstOrDefault(item => item.Value == currentCategoryId.Value);
+            }
+            if (!string.IsNullOrEmpty(currentSortOrder))
+            {
+                SortCB.SelectedItem = currentSortOrder;
+            }
         }
 
         private void closeBtn_Click(object sender, EventArgs e)
         {
             Close();
         }
-        private void Filldgv(string filter = "", int? categoryId = null)
+        private void Filldgv()
         {
             try
             {
@@ -218,11 +271,7 @@ namespace yslada
                 // Получаем общее количество строк
                 string countQuery = "SELECT COUNT(*) FROM menu m JOIN category c ON m.category = c.categoryID WHERE m.name LIKE @name";
                 MySqlCommand countCmd = new MySqlCommand(countQuery, connection);
-                countCmd.Parameters.AddWithValue("@name", "%" + filter + "%");
-                if (categoryId.HasValue && categoryId.Value != -1)
-                {
-                    countCmd.Parameters.AddWithValue("@categoryID", categoryId.Value);
-                }
+                countCmd.Parameters.AddWithValue("@name", "%" + currentSearchText + "%");
                 totalRows = Convert.ToInt32(countCmd.ExecuteScalar());
 
                 // Изменяем запрос для получения данных с учетом пагинации
@@ -231,13 +280,46 @@ namespace yslada
                                "LIMIT @pageSize OFFSET @offset";
 
                 MySqlCommand cmd = new MySqlCommand(query, connection);
-                cmd.Parameters.AddWithValue("@name", "%" + filter + "%");
+                cmd.Parameters.AddWithValue("@name", "%" + currentSearchText + "%");
                 cmd.Parameters.AddWithValue("@pageSize", pageSize);
                 cmd.Parameters.AddWithValue("@offset", currentPage * pageSize);
 
                 MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
                 table = new DataTable();
                 adapter.Fill(table);
+
+                // Обновите DataGridView
+                DishesDGW.DataSource = table;
+
+                // Обновите countRowLB для отображения количества строк на текущей странице
+                countRowLB.Text = $"Количество строк на странице: {table.Rows.Count} из {totalRows}";
+
+                // Логика для установки доступности меток страниц
+                if (totalRows < 10)
+                {
+                    // Если строк меньше 10, делаем недоступными page2LB и page3LB, переходим на page1LB
+                    page1LB.BackColor = Color.LightBlue; // Выделяем первую страницу
+                    page2LB.Enabled = false;
+                    page3LB.Enabled = false;
+                    currentPage = 0; // Переходим на первую страницу
+                }
+                else if (totalRows < 20)
+                {
+                    // Если строк меньше 20, делаем недоступной только page3LB, переходим на page2LB
+                    page2LB.BackColor = Color.LightBlue; // Выделяем вторую страницу
+                    page3LB.Enabled = false;
+                    currentPage = 1; // Переходим на вторую страницу
+                }
+                else
+                {
+                    // Если строк 20 или больше, все страницы доступны
+                    page1LB.Enabled = true;
+                    page2LB.Enabled = true;
+                    page3LB.Enabled = true;
+                }
+
+                // Вызываем метод обновления меток страниц после всех изменений
+                UpdatePageLabels();
 
                 // Ensure the column "Номер_Блюда" exists in the table
                 if (!table.Columns.Contains("Номер_Блюда"))
@@ -271,8 +353,6 @@ namespace yslada
                         row["Картинка"] = null; // If the file is not found, leave it null or set a default image
                     }
                 }
-
-                DishesDGW.DataSource = table;
 
                 // Check if the "Картинка" column exists in the DataGridView
                 if (!DishesDGW.Columns.Contains("Картинка"))
@@ -314,7 +394,8 @@ namespace yslada
         }
         private void SearchTB_TextChanged(object sender, EventArgs e)
         {
-            Filldgv(SearchTB.Text, categoryId);
+            currentSearchText = SearchTB.Text; // Сохраняем текст поиска
+            Filldgv(); // Вызываем Filldgv без параметров
         }
         private void InitializeComboBox()
         {
@@ -481,8 +562,8 @@ namespace yslada
             if (FilterCB.SelectedItem != null)
             {
                 var selectedItem = (dynamic)FilterCB.SelectedItem;
-                categoryId = selectedItem.Value;
-                Filldgv(SearchTB.Text, categoryId);
+                currentCategoryId = selectedItem.Value; // Сохраняем выбранную категорию
+                Filldgv(); // Вызываем Filldgv без параметров
             }
         }
         private void UpdatePaginationButtons()
@@ -495,7 +576,8 @@ namespace yslada
             if (currentPage > 0)
             {
                 currentPage--;
-                Filldgv(); // Перезагружаем данные для текущей страницы
+                Filldgv();// Перезагружаем данные для текущей страницы
+                UpdatePageLabels();
             }
         }
 
@@ -505,6 +587,7 @@ namespace yslada
             {
                 currentPage++;
                 Filldgv(); // Перезагружаем данные для текущей страницы
+                UpdatePageLabels();
             }
         }
     }

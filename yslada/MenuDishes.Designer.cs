@@ -44,6 +44,9 @@ namespace yslada
             this.backBtn = new System.Windows.Forms.Button();
             this.forwardBtn = new System.Windows.Forms.Button();
             this.countRowLB = new System.Windows.Forms.Label();
+            this.page1LB = new System.Windows.Forms.Label();
+            this.page2LB = new System.Windows.Forms.Label();
+            this.page3LB = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.DishesDGW)).BeginInit();
             this.SuspendLayout();
             // 
@@ -217,11 +220,41 @@ namespace yslada
             // 
             this.countRowLB.AutoSize = true;
             this.countRowLB.BackColor = System.Drawing.Color.Transparent;
-            this.countRowLB.Location = new System.Drawing.Point(565, 680);
+            this.countRowLB.Location = new System.Drawing.Point(270, 680);
             this.countRowLB.Name = "countRowLB";
             this.countRowLB.Size = new System.Drawing.Size(20, 25);
             this.countRowLB.TabIndex = 38;
             this.countRowLB.Text = "*";
+            // 
+            // page1LB
+            // 
+            this.page1LB.AutoSize = true;
+            this.page1LB.BackColor = System.Drawing.Color.Transparent;
+            this.page1LB.Location = new System.Drawing.Point(170, 680);
+            this.page1LB.Name = "page1LB";
+            this.page1LB.Size = new System.Drawing.Size(22, 25);
+            this.page1LB.TabIndex = 39;
+            this.page1LB.Text = "1";
+            // 
+            // page2LB
+            // 
+            this.page2LB.AutoSize = true;
+            this.page2LB.BackColor = System.Drawing.Color.Transparent;
+            this.page2LB.Location = new System.Drawing.Point(198, 680);
+            this.page2LB.Name = "page2LB";
+            this.page2LB.Size = new System.Drawing.Size(22, 25);
+            this.page2LB.TabIndex = 40;
+            this.page2LB.Text = "2";
+            // 
+            // page3LB
+            // 
+            this.page3LB.AutoSize = true;
+            this.page3LB.BackColor = System.Drawing.Color.Transparent;
+            this.page3LB.Location = new System.Drawing.Point(226, 680);
+            this.page3LB.Name = "page3LB";
+            this.page3LB.Size = new System.Drawing.Size(22, 25);
+            this.page3LB.TabIndex = 41;
+            this.page3LB.Text = "3";
             // 
             // MenuDishes
             // 
@@ -230,6 +263,9 @@ namespace yslada
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.BackgroundImage = global::yslada.Properties.Resources.MenuBG1;
             this.ClientSize = new System.Drawing.Size(1334, 723);
+            this.Controls.Add(this.page3LB);
+            this.Controls.Add(this.page2LB);
+            this.Controls.Add(this.page1LB);
             this.Controls.Add(this.countRowLB);
             this.Controls.Add(this.forwardBtn);
             this.Controls.Add(this.backBtn);
@@ -275,5 +311,8 @@ namespace yslada
         private System.Windows.Forms.Button backBtn;
         private System.Windows.Forms.Button forwardBtn;
         private System.Windows.Forms.Label countRowLB;
+        private System.Windows.Forms.Label page1LB;
+        private System.Windows.Forms.Label page2LB;
+        private System.Windows.Forms.Label page3LB;
     }
 }
