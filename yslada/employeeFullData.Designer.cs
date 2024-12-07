@@ -32,7 +32,6 @@ namespace yslada
             this.numberTB = new System.Windows.Forms.TextBox();
             this.roleCB = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.editBtn = new System.Windows.Forms.Button();
             this.closeBtn = new System.Windows.Forms.Button();
             this.passwdTB = new System.Windows.Forms.TextBox();
             this.loginTB = new System.Windows.Forms.TextBox();
@@ -73,18 +72,6 @@ namespace yslada
             this.label1.TabIndex = 75;
             this.label1.Text = "Роль";
             // 
-            // editBtn
-            // 
-            this.editBtn.BackColor = System.Drawing.Color.LightSalmon;
-            this.editBtn.Font = new System.Drawing.Font("Nirmala UI", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.editBtn.Location = new System.Drawing.Point(21, 255);
-            this.editBtn.Margin = new System.Windows.Forms.Padding(6);
-            this.editBtn.Name = "editBtn";
-            this.editBtn.Size = new System.Drawing.Size(231, 40);
-            this.editBtn.TabIndex = 74;
-            this.editBtn.Text = "Изменить";
-            this.editBtn.UseVisualStyleBackColor = false;
-            // 
             // closeBtn
             // 
             this.closeBtn.BackColor = System.Drawing.Color.LightSalmon;
@@ -96,6 +83,7 @@ namespace yslada
             this.closeBtn.TabIndex = 73;
             this.closeBtn.Text = "Выход в меню ";
             this.closeBtn.UseVisualStyleBackColor = false;
+            this.closeBtn.Click += new System.EventHandler(this.closeBtn_Click);
             // 
             // passwdTB
             // 
@@ -201,7 +189,6 @@ namespace yslada
             this.Controls.Add(this.numberTB);
             this.Controls.Add(this.roleCB);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.editBtn);
             this.Controls.Add(this.closeBtn);
             this.Controls.Add(this.passwdTB);
             this.Controls.Add(this.loginTB);
@@ -230,7 +217,6 @@ namespace yslada
         private System.Windows.Forms.TextBox numberTB;
         private System.Windows.Forms.ComboBox roleCB;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button editBtn;
         private System.Windows.Forms.Button closeBtn;
         private System.Windows.Forms.TextBox passwdTB;
         private System.Windows.Forms.TextBox loginTB;

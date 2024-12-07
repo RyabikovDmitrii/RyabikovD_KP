@@ -13,14 +13,23 @@ namespace yslada
 {
     public partial class Employees : Form
     {
+        private ContextMenuStrip contextMenuStrip;
         private string str = ConnectionStr.connectionString();
         private MySqlConnection connection;
         private DataTable table;
+        private object _Click;
+
         public Employees()
         {
             InitializeComponent();
             FillDGV();
             employeeDGV.MouseDown += EmployeeDGV_MouseDown;
+            employeeDGV.ContextMenuStrip = contextMenuStrip;
+            //contextMenuStrip = new ContextMenuStrip();
+
+            //ToolStripMenuItem editDishMenuItem = new ToolStripMenuItem("Редактировать блюдо");
+            //editDishMenuItem.Click += ViewFullData_Click;
+            //contextMenuStrip.Items.Add(editDishMenuItem);
         }
         private void DeleteUser_Click(object sender, EventArgs e)
         {
@@ -72,6 +81,8 @@ namespace yslada
 
                     ContextMenuStrip contextMenu = new ContextMenuStrip();
                     contextMenu.Items.Add("Удалить", null, DeleteUser_Click);
+                    contextMenu.Show(employeeDGV, e.Location);
+                    contextMenu.Items.Add("Полные данные о пользователе", null, ViewFullData_Click);
                     contextMenu.Show(employeeDGV, e.Location);
                 }
             }
@@ -177,7 +188,35 @@ namespace yslada
                 MessageBox.Show("Пожалуйста, выберите пользователя для редактирования.");
             }
         }
+        private void ViewFullData_Click(object sender, EventArgs e)
+        {
+            // Проверяем, что есть выбранная строка
+            if (employeeDGV.SelectedRows.Count > 0)
+            {
+                DataGridViewRow selectedRow = employeeDGV.SelectedRows[0];
 
+                // Извлекаем данные из выбранной строки
+                string userID = selectedRow.Cells["userID"].Value.ToString();
+                string surname = selectedRow.Cells["Фамилия"].Value.ToString();
+                string name = selectedRow.Cells["Имя"].Value.ToString();
+                string patronymic = selectedRow.Cells["Отчество"].Value.ToString();
+                string number = selectedRow.Cells["Номер"].Value.ToString(); // Если номер скрыт, нужно получать его исходное значение
+                string login = selectedRow.Cells["Логин"].Value.ToString();
+                string passwd = selectedRow.Cells["Пароль"].Value.ToString(); // Если пароль скрыт, нужно получить его настоящее значение из базы или использовать подходящий метод для его обработки
+                string roleId = selectedRow.Cells["Роль"].Value.ToString();
+
+                Hide();
+                using (employeeFullData fullDataForm = new employeeFullData(userID, surname, name, patronymic, number, login, passwd, roleId))
+                {
+                    fullDataForm.ShowDialog(); // Используем ShowDialog для модального окна
+                }
+                Show();   
+            }
+            else
+            {
+                MessageBox.Show("Пожалуйста, выберите пользователя для просмотра полной информации.");
+            }
+        }
         private void Employees_Load(object sender, EventArgs e)
         {
 
