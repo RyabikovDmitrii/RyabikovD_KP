@@ -101,6 +101,7 @@ namespace yslada
                 employeeDGV.Columns["userID"].Visible = false;
             }
         }
+        //
         private void EmployeeDGV_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             // Проверяем, что мы находимся в нужных столбцах
