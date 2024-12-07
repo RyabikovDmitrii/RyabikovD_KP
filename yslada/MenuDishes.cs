@@ -13,6 +13,7 @@ namespace yslada
 {
     public partial class MenuDishes : Form
     {
+        private ColorSquareLabel colorSquareLabel;
         private string currentFilterValue = ""; // Для хранения выбранной категории
         private string currentSortColumn = "Цена"; // По умолчанию сортируем по цене
         private string currentSortDirection = "ASC"; // По умолчанию по возрастанию
@@ -84,6 +85,19 @@ namespace yslada
                 contextMenuStrip.Items.Add(deleteDishMenuItem);
 
                 DishesDGW.ContextMenuStrip = contextMenuStrip;
+            }
+        }
+        private void UpdateSquareLabel(bool isAvailable)
+        {
+            if (isAvailable)
+            {
+                colorSquareLabel.SquareColor = Color.Green;
+                colorSquareLabel.DisplayText = "Доступно";
+            }
+            else
+            {
+                colorSquareLabel.SquareColor = Color.Red;
+                colorSquareLabel.DisplayText = "Недоступно";
             }
         }
         private void UpdatePageLabels()
@@ -309,6 +323,24 @@ namespace yslada
                 // Обновите DataGridView
                 DishesDGW.DataSource = table;
 
+                // Подсветка строк в зависимости от статуса
+                foreach (DataGridViewRow row in DishesDGW.Rows)
+                {
+                    // Проверяем, что ячейка не равна null
+                    if (row.Cells["Доступность"].Value != null)
+                    {
+                        string status = row.Cells["Доступность"].Value.ToString(); // Получаем статус
+                        if (status == "Доступно")
+                        {
+                            row.DefaultCellStyle.BackColor = Color.LightGreen; // Подсветка для доступных блюд
+                        }
+                        else if (status == "Недоступно")
+                        {
+                            row.DefaultCellStyle.BackColor = Color.LightCoral; // Подсветка для недоступных блюд
+                        }
+                    }
+                }
+
                 // Обновите countRowLB для отображения количества строк на текущей странице
                 countRowLB.Text = $"Количество строк на странице: {table.Rows.Count} из {totalRows}";
 
@@ -387,6 +419,24 @@ namespace yslada
             finally
             {
                 connection.Close();
+            }
+        }
+        private void DishesDGW_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (DishesDGW.Columns[e.ColumnIndex].Name == "Доступность")
+            {
+                if (e.Value != null)
+                {
+                    string status = e.Value.ToString();
+                    if (status == "available")
+                    {
+                        DishesDGW.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.LightGreen;
+                    }
+                    else if (status == "unavailable")
+                    {
+                        DishesDGW.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.LightCoral;
+                    }
+                }
             }
         }
         private void UpdatePaginationLabels()

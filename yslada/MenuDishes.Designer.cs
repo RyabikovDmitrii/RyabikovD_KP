@@ -47,6 +47,8 @@ namespace yslada
             this.page1LB = new System.Windows.Forms.Label();
             this.page2LB = new System.Windows.Forms.Label();
             this.page3LB = new System.Windows.Forms.Label();
+            this.colorSquareLabel2 = new yslada.ColorSquareLabel();
+            this.colorSquareLabel1 = new yslada.ColorSquareLabel();
             ((System.ComponentModel.ISupportInitialize)(this.DishesDGW)).BeginInit();
             this.SuspendLayout();
             // 
@@ -56,21 +58,22 @@ namespace yslada
             this.DishesDGW.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.DishesDGW.BackgroundColor = System.Drawing.Color.DarkSalmon;
             this.DishesDGW.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DishesDGW.Location = new System.Drawing.Point(15, 93);
-            this.DishesDGW.Margin = new System.Windows.Forms.Padding(6);
+            this.DishesDGW.Location = new System.Drawing.Point(16, 93);
+            this.DishesDGW.Margin = new System.Windows.Forms.Padding(6, 7, 6, 7);
             this.DishesDGW.Name = "DishesDGW";
             this.DishesDGW.ReadOnly = true;
             this.DishesDGW.Size = new System.Drawing.Size(1304, 570);
             this.DishesDGW.TabIndex = 0;
+            this.DishesDGW.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.DishesDGW_CellFormatting);
             // 
             // SearchTB
             // 
             this.SearchTB.BackColor = System.Drawing.SystemColors.Control;
             this.SearchTB.Font = new System.Drawing.Font("Nirmala UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SearchTB.Location = new System.Drawing.Point(18, 48);
-            this.SearchTB.Margin = new System.Windows.Forms.Padding(6);
+            this.SearchTB.Location = new System.Drawing.Point(17, 48);
+            this.SearchTB.Margin = new System.Windows.Forms.Padding(6, 7, 6, 7);
             this.SearchTB.Name = "SearchTB";
-            this.SearchTB.Size = new System.Drawing.Size(654, 33);
+            this.SearchTB.Size = new System.Drawing.Size(655, 33);
             this.SearchTB.TabIndex = 3;
             this.SearchTB.TextChanged += new System.EventHandler(this.SearchTB_TextChanged);
             this.SearchTB.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.SearchTB_KeyPress);
@@ -80,7 +83,7 @@ namespace yslada
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Nirmala UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(15, 17);
+            this.label1.Location = new System.Drawing.Point(16, 17);
             this.label1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(233, 25);
@@ -101,8 +104,8 @@ namespace yslada
             // 
             this.closeBtn.BackColor = System.Drawing.Color.LightSalmon;
             this.closeBtn.Font = new System.Drawing.Font("Nirmala UI", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.closeBtn.Location = new System.Drawing.Point(1088, 673);
-            this.closeBtn.Margin = new System.Windows.Forms.Padding(6);
+            this.closeBtn.Location = new System.Drawing.Point(1087, 673);
+            this.closeBtn.Margin = new System.Windows.Forms.Padding(6, 7, 6, 7);
             this.closeBtn.Name = "closeBtn";
             this.closeBtn.Size = new System.Drawing.Size(231, 40);
             this.closeBtn.TabIndex = 23;
@@ -126,7 +129,7 @@ namespace yslada
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Nirmala UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(1592, 9);
+            this.label4.Location = new System.Drawing.Point(1592, 8);
             this.label4.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(154, 25);
@@ -137,7 +140,7 @@ namespace yslada
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Nirmala UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(1918, 17);
+            this.label5.Location = new System.Drawing.Point(1919, 17);
             this.label5.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(0, 25);
@@ -149,7 +152,7 @@ namespace yslada
             this.SortCB.Font = new System.Drawing.Font("Nirmala UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SortCB.FormattingEnabled = true;
             this.SortCB.Location = new System.Drawing.Point(720, 48);
-            this.SortCB.Margin = new System.Windows.Forms.Padding(6);
+            this.SortCB.Margin = new System.Windows.Forms.Padding(6, 7, 6, 7);
             this.SortCB.Name = "SortCB";
             this.SortCB.Size = new System.Drawing.Size(276, 33);
             this.SortCB.TabIndex = 31;
@@ -160,9 +163,9 @@ namespace yslada
             this.comboBox2.Font = new System.Drawing.Font("Nirmala UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBox2.FormattingEnabled = true;
             this.comboBox2.Location = new System.Drawing.Point(1597, 48);
-            this.comboBox2.Margin = new System.Windows.Forms.Padding(6);
+            this.comboBox2.Margin = new System.Windows.Forms.Padding(6, 7, 6, 7);
             this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(190, 33);
+            this.comboBox2.Size = new System.Drawing.Size(189, 33);
             this.comboBox2.TabIndex = 32;
             // 
             // FilterCB
@@ -170,8 +173,8 @@ namespace yslada
             this.FilterCB.BackColor = System.Drawing.SystemColors.Control;
             this.FilterCB.Font = new System.Drawing.Font("Nirmala UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FilterCB.FormattingEnabled = true;
-            this.FilterCB.Location = new System.Drawing.Point(1044, 48);
-            this.FilterCB.Margin = new System.Windows.Forms.Padding(6);
+            this.FilterCB.Location = new System.Drawing.Point(1043, 48);
+            this.FilterCB.Margin = new System.Windows.Forms.Padding(6, 7, 6, 7);
             this.FilterCB.Name = "FilterCB";
             this.FilterCB.Size = new System.Drawing.Size(276, 33);
             this.FilterCB.TabIndex = 34;
@@ -196,9 +199,9 @@ namespace yslada
             this.backBtn.FlatAppearance.BorderSize = 0;
             this.backBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.backBtn.Image = global::yslada.Properties.Resources.left;
-            this.backBtn.Location = new System.Drawing.Point(15, 668);
+            this.backBtn.Location = new System.Drawing.Point(16, 668);
             this.backBtn.Name = "backBtn";
-            this.backBtn.Size = new System.Drawing.Size(45, 48);
+            this.backBtn.Size = new System.Drawing.Size(46, 48);
             this.backBtn.TabIndex = 35;
             this.backBtn.UseVisualStyleBackColor = false;
             this.backBtn.Click += new System.EventHandler(this.backBtn_Click);
@@ -211,7 +214,7 @@ namespace yslada
             this.forwardBtn.Image = global::yslada.Properties.Resources.right;
             this.forwardBtn.Location = new System.Drawing.Point(75, 668);
             this.forwardBtn.Name = "forwardBtn";
-            this.forwardBtn.Size = new System.Drawing.Size(45, 48);
+            this.forwardBtn.Size = new System.Drawing.Size(46, 48);
             this.forwardBtn.TabIndex = 36;
             this.forwardBtn.UseVisualStyleBackColor = false;
             this.forwardBtn.Click += new System.EventHandler(this.forwardBtn_Click);
@@ -256,6 +259,32 @@ namespace yslada
             this.page3LB.TabIndex = 41;
             this.page3LB.Text = "3";
             // 
+            // colorSquareLabel2
+            // 
+            this.colorSquareLabel2.BackColor = System.Drawing.Color.LightSalmon;
+            this.colorSquareLabel2.DisplayText = " - недоступно";
+            this.colorSquareLabel2.Font = new System.Drawing.Font("Nirmala UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.colorSquareLabel2.Location = new System.Drawing.Point(768, 694);
+            this.colorSquareLabel2.Name = "colorSquareLabel2";
+            this.colorSquareLabel2.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.colorSquareLabel2.Size = new System.Drawing.Size(149, 20);
+            this.colorSquareLabel2.SquareColor = System.Drawing.Color.Red;
+            this.colorSquareLabel2.TabIndex = 43;
+            this.colorSquareLabel2.Text = " - недоступно";
+            // 
+            // colorSquareLabel1
+            // 
+            this.colorSquareLabel1.BackColor = System.Drawing.Color.LightSalmon;
+            this.colorSquareLabel1.DisplayText = " - доступно";
+            this.colorSquareLabel1.Font = new System.Drawing.Font("Nirmala UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.colorSquareLabel1.Location = new System.Drawing.Point(768, 668);
+            this.colorSquareLabel1.Name = "colorSquareLabel1";
+            this.colorSquareLabel1.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.colorSquareLabel1.Size = new System.Drawing.Size(149, 20);
+            this.colorSquareLabel1.SquareColor = System.Drawing.Color.Green;
+            this.colorSquareLabel1.TabIndex = 42;
+            this.colorSquareLabel1.Text = " - доступно";
+            // 
             // MenuDishes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 25F);
@@ -263,6 +292,8 @@ namespace yslada
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.BackgroundImage = global::yslada.Properties.Resources.MenuBG1;
             this.ClientSize = new System.Drawing.Size(1334, 723);
+            this.Controls.Add(this.colorSquareLabel2);
+            this.Controls.Add(this.colorSquareLabel1);
             this.Controls.Add(this.page3LB);
             this.Controls.Add(this.page2LB);
             this.Controls.Add(this.page1LB);
@@ -283,7 +314,7 @@ namespace yslada
             this.Controls.Add(this.DishesDGW);
             this.Font = new System.Drawing.Font("Nirmala UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(6);
+            this.Margin = new System.Windows.Forms.Padding(6, 7, 6, 7);
             this.Name = "MenuDishes";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "MenuDishes";
@@ -314,5 +345,7 @@ namespace yslada
         private System.Windows.Forms.Label page1LB;
         private System.Windows.Forms.Label page2LB;
         private System.Windows.Forms.Label page3LB;
+        private ColorSquareLabel colorSquareLabel1;
+        private ColorSquareLabel colorSquareLabel2;
     }
 }
