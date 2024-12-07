@@ -73,6 +73,7 @@ namespace yslada
             this.employeeDGV.ReadOnly = true;
             this.employeeDGV.Size = new System.Drawing.Size(1304, 570);
             this.employeeDGV.TabIndex = 35;
+            this.employeeDGV.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.EmployeeDGV_CellFormatting);
             // 
             // closeBtn
             // 

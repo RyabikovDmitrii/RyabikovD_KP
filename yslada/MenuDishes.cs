@@ -307,6 +307,7 @@ namespace yslada
                 }
                 query += $" ORDER BY {currentSortColumn} {currentSortDirection} LIMIT @pageSize OFFSET @offset";
 
+
                 MySqlCommand cmd = new MySqlCommand(query, connection);
                 cmd.Parameters.AddWithValue("@name", "%" + currentSearchText + "%");
                 if (currentCategoryId.HasValue && currentCategoryId.Value != -1)
@@ -322,7 +323,6 @@ namespace yslada
 
                 // Обновите DataGridView
                 DishesDGW.DataSource = table;
-
                 // Подсветка строк в зависимости от статуса
                 foreach (DataGridViewRow row in DishesDGW.Rows)
                 {
@@ -340,7 +340,6 @@ namespace yslada
                         }
                     }
                 }
-
                 // Обновите countRowLB для отображения количества строк на текущей странице
                 countRowLB.Text = $"Количество строк на странице: {table.Rows.Count} из {totalRows}";
 

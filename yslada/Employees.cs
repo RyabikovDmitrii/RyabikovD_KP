@@ -101,7 +101,39 @@ namespace yslada
                 employeeDGV.Columns["userID"].Visible = false;
             }
         }
+        private void EmployeeDGV_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            // Проверяем, что мы находимся в нужных столбцах
+            if (employeeDGV.Columns[e.ColumnIndex].Name == "Фамилия" ||
+                employeeDGV.Columns[e.ColumnIndex].Name == "Имя" ||
+                employeeDGV.Columns[e.ColumnIndex].Name == "Отчество")
+            {
+                // Получаем текущее значение ячейки
+                string originalValue = e.Value as string;
 
+                // Проверяем, что значение не null
+                if (!string.IsNullOrEmpty(originalValue))
+                {
+                    // Определяем количество символов для маскировки (вторая половина)
+                    int halfLength = originalValue.Length / 2;
+                    string visiblePart = originalValue.Substring(0, originalValue.Length - halfLength); // Оставляем видимой первую половину
+                    string maskedPart = new string('*', halfLength); // Создаем строку из символов '*'
+
+                    // Обновляем значение ячейки
+                    e.Value = visiblePart + maskedPart;
+                    e.FormattingApplied = true; // Указываем, что форматирование было применено
+                }
+            }
+            else if (employeeDGV.Columns[e.ColumnIndex].Name == "Номер" ||
+                     employeeDGV.Columns[e.ColumnIndex].Name == "Логин" ||
+                     employeeDGV.Columns[e.ColumnIndex].Name == "Пароль" ||
+                     employeeDGV.Columns[e.ColumnIndex].Name == "Роль")
+            {
+                // Для этих столбцов полностью скрываем значение
+                e.Value = new string('*', 8); // Замените 8 на желаемое количество символов
+                e.FormattingApplied = true; // Указываем, что форматирование было применено
+            }
+        }
         private void addBtn_Click(object sender, EventArgs e)
         {
             Hide();

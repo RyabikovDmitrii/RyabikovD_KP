@@ -262,28 +262,28 @@ namespace yslada
             // colorSquareLabel2
             // 
             this.colorSquareLabel2.BackColor = System.Drawing.Color.LightSalmon;
-            this.colorSquareLabel2.DisplayText = " - недоступно";
+            this.colorSquareLabel2.DisplayText = " - нет в наличии";
             this.colorSquareLabel2.Font = new System.Drawing.Font("Nirmala UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.colorSquareLabel2.Location = new System.Drawing.Point(768, 694);
             this.colorSquareLabel2.Name = "colorSquareLabel2";
             this.colorSquareLabel2.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.colorSquareLabel2.Size = new System.Drawing.Size(149, 20);
-            this.colorSquareLabel2.SquareColor = System.Drawing.Color.Red;
+            this.colorSquareLabel2.SquareColor = System.Drawing.Color.LightCoral;
             this.colorSquareLabel2.TabIndex = 43;
-            this.colorSquareLabel2.Text = " - недоступно";
+            this.colorSquareLabel2.Text = " - нет в наличии";
             // 
             // colorSquareLabel1
             // 
             this.colorSquareLabel1.BackColor = System.Drawing.Color.LightSalmon;
-            this.colorSquareLabel1.DisplayText = " - доступно";
+            this.colorSquareLabel1.DisplayText = " - в наличии";
             this.colorSquareLabel1.Font = new System.Drawing.Font("Nirmala UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.colorSquareLabel1.Location = new System.Drawing.Point(768, 668);
             this.colorSquareLabel1.Name = "colorSquareLabel1";
             this.colorSquareLabel1.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.colorSquareLabel1.Size = new System.Drawing.Size(149, 20);
-            this.colorSquareLabel1.SquareColor = System.Drawing.Color.Green;
+            this.colorSquareLabel1.SquareColor = System.Drawing.Color.LightGreen;
             this.colorSquareLabel1.TabIndex = 42;
-            this.colorSquareLabel1.Text = " - доступно";
+            this.colorSquareLabel1.Text = " - в наличии";
             // 
             // MenuDishes
             // 
