@@ -105,6 +105,8 @@ namespace yslada
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Employees";
             this.Load += new System.EventHandler(this.Employees_Load);
+            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Employees_KeyPress);
+            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Employees_MouseMove);
             ((System.ComponentModel.ISupportInitialize)(this.employeeDGV)).EndInit();
             this.ResumeLayout(false);
 

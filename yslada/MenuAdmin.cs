@@ -19,6 +19,8 @@ namespace yslada
         private string tableNum = "";
         private string statusOrder = "";
         private string employee = "";
+        private Timer idleTimer;
+        private const int IdleTimeout = 30000;
         #endregion
         private string str = ConnectionStr.connectionString();
         private MySqlConnection connection;
@@ -46,8 +48,40 @@ GROUP BY
             connection = new MySqlConnection(str);
             FIO += fio;
             Role += role;
+            InitializeIdleTimer();
+        }
+        private void InitializeIdleTimer()
+        {
+            idleTimer = new Timer();
+            idleTimer.Interval = IdleTimeout;
+            idleTimer.Tick += IdleTimer_Tick;
+            idleTimer.Start();
+        }
+        private void IdleTimer_Tick(object sender, EventArgs e)
+        {
+            MessageBox.Show("Вы бездействовали более 30 секунд, перенаправляем на авторизацию", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            // Остановка таймера
+            idleTimer.Stop();
+            // Закрыть текущую форму и открыть форму авторизации
+            this.Close();
+            var authForm = new Auth(); // Создаем экземпляр формы авторизации
+            authForm.Show(); // Показываем форму авторизации
+        }
+        private void MenuAdmin_MouseMove(object sender, MouseEventArgs e)
+        {
+            ResetIdleTimer();
         }
 
+        private void MenuAdmin_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            ResetIdleTimer();
+        }
+
+        private void ResetIdleTimer()
+        {
+            idleTimer.Stop();
+            idleTimer.Start(); // Сброс таймера
+        }
         private void MenuAdmin_Load(object sender, EventArgs e)
         {
             FillDGV();

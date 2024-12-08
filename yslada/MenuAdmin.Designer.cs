@@ -215,6 +215,8 @@ namespace yslada
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Главное меню";
             this.Load += new System.EventHandler(this.MenuAdmin_Load);
+            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.MenuAdmin_KeyPress);
+            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.MenuAdmin_MouseMove);
             ((System.ComponentModel.ISupportInitialize)(this.orderDGV)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

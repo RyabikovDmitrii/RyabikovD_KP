@@ -18,18 +18,52 @@ namespace yslada
         private MySqlConnection connection;
         private DataTable table;
         private object _Click;
-
+        private Timer idleTimer;
+        private const int IdleTimeout = 30000;
         public Employees()
         {
             InitializeComponent();
             FillDGV();
             employeeDGV.MouseDown += EmployeeDGV_MouseDown;
             employeeDGV.ContextMenuStrip = contextMenuStrip;
+            InitializeIdleTimer();
             //contextMenuStrip = new ContextMenuStrip();
 
             //ToolStripMenuItem editDishMenuItem = new ToolStripMenuItem("Редактировать блюдо");
             //editDishMenuItem.Click += ViewFullData_Click;
             //contextMenuStrip.Items.Add(editDishMenuItem);
+        }
+        private void InitializeIdleTimer()
+        {
+            idleTimer = new Timer();
+            idleTimer.Interval = IdleTimeout; // Установка времени бездействия
+            idleTimer.Tick += IdleTimer_Tick; // Подписка на событие
+            idleTimer.Start(); // Запуск таймера
+        }
+        private void IdleTimer_Tick(object sender, EventArgs e)
+        {
+            MessageBox.Show("Вы бездействовали более 30 секунд, перенаправляем на авторизацию", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            // Остановка таймера
+            idleTimer.Stop();
+            // Показать форму авторизации
+            var authForm = new Auth(); // Предполагается, что у вас есть форма авторизации
+            authForm.Show();
+            this.Hide(); // Скрыть текущую форму
+        }
+        private void Employees_MouseMove(object sender, MouseEventArgs e)
+        {
+            ResetIdleTimer();
+        }
+
+        private void Employees_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            ResetIdleTimer();
+        }
+
+        private void ResetIdleTimer()
+        {
+            idleTimer.Stop();
+            idleTimer.Start(); // Сброс таймера
         }
         private void DeleteUser_Click(object sender, EventArgs e)
         {

@@ -203,6 +203,8 @@ namespace yslada
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "MenuManager";
             this.Load += new System.EventHandler(this.MenuManager_Load);
+            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.MenuManager_KeyPress);
+            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.MenuManager_MouseMove);
             ((System.ComponentModel.ISupportInitialize)(this.orderDGV)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

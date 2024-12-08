@@ -13,6 +13,8 @@ namespace yslada
 {
     public partial class MenuDishes : Form
     {
+        private Timer idleTimer;
+        private const int IdleTimeout = 30000; // 30 секунд
         private ColorSquareLabel colorSquareLabel;
         private string currentFilterValue = ""; // Для хранения выбранной категории
         private string currentSortColumn = "Цена"; // По умолчанию сортируем по цене
@@ -49,6 +51,9 @@ namespace yslada
             InitializeOrderButton();
             InitializeFilterCB();
             InitializePageLabels();
+            InitializeIdleTimer();
+            this.MouseMove += MenuDishes_MouseMove;
+            this.KeyPress += MenuDishes_KeyPress;
             FIO += fio;
             Role += role;
             connection = new MySqlConnection(str);
@@ -86,6 +91,38 @@ namespace yslada
 
                 DishesDGW.ContextMenuStrip = contextMenuStrip;
             }
+        }
+        private void InitializeIdleTimer()
+        {
+            idleTimer = new Timer();
+            idleTimer.Interval = IdleTimeout; // Установка времени бездействия
+            idleTimer.Tick += IdleTimer_Tick; // Подписка на событие
+            idleTimer.Start(); // Запуск таймера
+        }
+        private void IdleTimer_Tick(object sender, EventArgs e)
+        {
+            MessageBox.Show("Вы бездействовали более 30 секунд, перенаправляем на авторизацию", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            // Остановка таймера
+            idleTimer.Stop();
+            // Показать форму авторизации
+            var authForm = new Auth(); // Предполагается, что у вас есть форма авторизации
+            authForm.Show();
+            this.Hide(); // Скрыть текущую форму
+        }
+        private void MenuDishes_MouseMove(object sender, MouseEventArgs e)
+        {
+            ResetIdleTimer();
+        }
+
+        private void MenuDishes_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            ResetIdleTimer();
+        }
+
+        private void ResetIdleTimer()
+        {
+            idleTimer.Stop();
+            idleTimer.Start(); // Сброс таймера
         }
         private void UpdateSquareLabel(bool isAvailable)
         {

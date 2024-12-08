@@ -17,6 +17,8 @@ namespace yslada
         private string str = ConnectionStr.connectionString();
         private MySqlConnection connection;
         private DataTable table;
+        private Timer idleTimer;
+        private const int IdleTimeout = 30000;
         private string query = @"
 SELECT
     o.orderID AS Номер_заказа,
@@ -41,7 +43,31 @@ GROUP BY
             FIO += fio;
             Role += role;
         }
+        private void IdleTimer_Tick(object sender, EventArgs e)
+        {
+            MessageBox.Show("Вы бездействовали более 30 секунд, перенаправляем на авторизацию", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            // Остановка таймера
+            idleTimer.Stop();
+            // Показать форму авторизации
+            var authForm = new Auth(); // Предполагается, что у вас есть форма авторизации
+            authForm.Show();
+            this.Hide(); // Скрыть текущую форму
+        }
+        private void MenuManager_MouseMove(object sender, MouseEventArgs e)
+        {
+            ResetIdleTimer();
+        }
 
+        private void MenuManager_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            ResetIdleTimer();
+        }
+
+        private void ResetIdleTimer()
+        {
+            idleTimer.Stop();
+            idleTimer.Start(); // Сброс таймера
+        }
         private void closeBtn_Click(object sender, EventArgs e)
         {
             Close();
